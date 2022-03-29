@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>京东商品评论分析与可视化</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="static/assets/img/favicon.png" rel="icon">
+  <link href="static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i,900" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="static/assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="static/assets/css/style.css" rel="stylesheet">
+  <script src="static/assets/js/echarts.min.js"></script>
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="container">
+
+      <div class="logo float-left">
+        <h1 class="text-light"><a href="index"><span>big data project</span></a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="temp.html"><img src="static/assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav class="nav-menu float-right d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="/index">首页<i class="la la-angle-down"></i></a></li>
+          <li class="drop-down"><a href="#">数据集展示</a>
+            <ul>
+              <li class="drop-down"><a href="#">4000-5000价位</a>
+                <ul>
+                  <li><a href="/comment/dell">戴尔灵越3511</a></li>
+                  <li><a href="/comment/hp1">惠普星14 2021</a></li>
+                  <li><a href="/comment/thinkpad">联想ThinkPad E14 2021</a></li>
+                </ul>
+              </li>
+              <li class="drop-down"><a href="#">6000-8000价位</a>
+                <ul>
+                  <li><a href="/comment/apple">MacBook Air 2020 M1款</a></li>
+                  <li><a href="/comment/huawei">华为MateBook 14 2021款</a></li>
+                  <li><a href="/comment/hp2">惠普(HP)战99</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="drop-down"><a href="#">评分</a>
+            <ul>
+              <li><a href="/score1">4000-5000价位</a></li>
+              <li><a href="/score2">6000-8000价位</a></li>
+            </ul>
+          </li>
+          <li><a href="/classification">好/差评</a></li>
+          <li><a href="/days">追评时间</a></li>
+          <li><a href="total_score">总分</a></li>
+
+        </ul>
+      </nav><!-- .nav-menu -->
+
+    </div>
+  </header><!-- End Header -->
+
+
+  <main id="main">
+        <!-- =======  Section ======= -->
+    <section id="team" class="team">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>入门价位笔记本评论评分展示</h2>
+        </div>
+      </div>
+    </section><!-- End  Section -->
+
+
+    <!-- ======= chart1 Section ======= -->
+    <section class="counts section-bg">
+      <div class="container">
+        <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+        <div id="chart1" style="width: 100%;height:500px;"></div>
+
+        <script type="text/javascript">
+var dom = document.getElementById("chart1");
+var myChart = echarts.init(dom);
+var app = {};
+
+var option;
+
+
+
+option = {
+  title: {
+    text: '三个品牌评论评分分布情况'
+  },
+  tooltip: {
+    trigger: 'axis'
+  },
+  legend: {},
+  toolbox: {
+    show: true,
+    feature: {
+      dataZoom: {
+        yAxisIndex: 'none'
+      },
+      dataView: { readOnly: false },
+      magicType: { type: ['line', 'bar'] },
+      restore: {},
+      saveAsImage: {}
+    }
+  },
+  xAxis: {
+    type: 'category',
+    name: '评分',
+    data: {{ score }}
+  },
+  yAxis: {
+    type: 'value',
+    name: '评分人数'
+  },
+  series: [
+    {
+      name: 'Dell',
+      type: 'bar',
+      data: {{ num1 }},
+      markPoint: {
+        data: [
+          { type: 'max', name: 'Max' },
+          { type: 'min', name: 'Min' }
+        ]
+      }
+    },
+    {
+      name: 'HP',
+      type: 'bar',
+      data: [5, 0, 4, 5, 286],
+      markPoint: {
+        data: [
+          { type: 'max', name: 'Max' },
+          { type: 'min', name: 'Min' }
+        ]
+      }
+    },
+    {
+      name: 'ThinkPad',
+      type: 'bar',
+      data: {{ num3 }},
+      markPoint: {
+        data: [
+          { type: 'max', name: 'Max' },
+          { type: 'min', name: 'Min' }
+        ]
+      }
+    }
+  ]
+};
+
+if (option && typeof option === 'object') {
+    myChart.setOption(option);
+}
+
+        </script>
+      </div>
+    </section><!-- End chart1 Section -->
+
+    <section id="team" class="team">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>评论平均分比较</h2>
+        </div>
+
+      </div>
+    </section><!-- End  Section -->
+
+    <!-- ======= chart2 Section ======= -->
+    <section class="counts section-bg">
+      <div class="container">
+        <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+        <div id="chart2" style="width: 100%;height:500px;"></div>
+
+        <script type="text/javascript">
+var dom = document.getElementById("chart2");
+var myChart = echarts.init(dom);
+var app = {};
+
+var option;
+
+
+option = {
+  title: {
+    text: '评论平均分',
+    left: 'center'
+  },
+  legend: {
+    orient: 'vertical',
+    left: 'left'
+  },
+  xAxis: {
+    name: '品牌',
+    type: 'category',
+    data: ['Dell', 'hp', 'ThinkPad']
+  },
+  yAxis: {
+    name: '平均评分',
+    type: 'value'
+  },
+  series: [
+    {
+      data: [4.61, 4.89, 4.82],
+      type: 'bar',
+      label: {
+        show: true,
+        position: 'top',
+        fontSize: 25
+      },
+      barWidth: '100',
+      showBackground: true,
+      backgroundStyle: {
+        color: 'rgba(180, 180, 180, 0.2)'
+      }
+    }
+  ]
+};
+
+if (option && typeof option === 'object') {
+    myChart.setOption(option);
+}
+
+        </script>
+      </div>
+    </section><!-- End chart2 Section -->
+
+
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="static/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="static/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="static/assets/vendor/php-email-form/validate.js"></script>
+  <script src="static/assets/vendor/jquery-sticky/jquery.sticky.js"></script>
+  <script src="static/assets/vendor/venobox/venobox.min.js"></script>
+  <script src="static/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="static/assets/vendor/counterup/counterup.min.js"></script>
+  <script src="static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="static/assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="static/assets/js/main.js"></script>
+
+<style>
+.copyrights{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
+</style>
+<div class="copyrights" id="links20210126">
+	Collect from <a href="http://www.cssmoban.com/"  title="网站模板">模板之家</a>
+	<a href="https://www.chazidian.com/"  title="查字典">查字典</a>
+</div>
+</body>
+
+</html>
